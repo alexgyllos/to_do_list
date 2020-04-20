@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>ToDo List</title>
+  <link rel="icon" href="./images/titleicon.png">
+  <link rel="stylesheet" href="./css/styles.css">
+  <script src="./js/bundle.js"></script>
+</head>
+<body>
+  <div id="app">
+    <form v-on:submit.prevent="saveNewItem">
+      <!-- <label for="new-item">Add a new item:</label> -->
+      <input id="new-item" type="text" v-model="newItem" placeholder="Add task"required />
+      <input type="radio" v-model="priority" value="false">High
+      <input type="radio" v-model="priority" value="true">Low
+      <input v-on:click="setPriority()" type="submit" value="Save Item" />
+    </form>
+
+    <ul>
+      <li v-for="(item, index) in items" v-bind:class="item.isCompleted ? 'completed' : (item.priority ? 'low-priority' : 'high-priority')">
+      <!-- <li v-for="(item, index) in items" v-bind:class="item.priority ? 'low-priority' : 'high-priority'"> -->
+        <span>{{ item.name }}</span>
+        <span v-if="item.isCompleted">Completed!</span>
+        <!-- <span>{{ item.priority }}</span> -->
+        <button type="button" name="button" v-if="!item.isCompleted" v-on:click="completeTask(index)">Complete</button>
+      </li>
+    </ul>
+  </div>
+</body>
+</html>
